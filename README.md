@@ -51,3 +51,6 @@ No build process is required.
 
 - Appointment CTAs direct visitors to the relevant chamber phone numbers only.
 - The hero title and description no longer use the em dash character.
+
+## Hero image
+The homepage hero now uses `assets/images/doctor-hero-background.webp` as a responsive background image with a soft blue/teal overlay so it blends with the site palette while keeping the left-side text readable.

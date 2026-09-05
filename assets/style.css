@@ -313,3 +313,209 @@ html[lang="bn"] .hero-lead{line-height:1.82}
   .floating-card{display:none}
   .hero-stats{margin-top:14px}
 }
+
+/* Hero background portrait update */
+.hero{
+  min-height:700px;
+  padding-top:64px;
+  padding-bottom:42px;
+  background:
+    linear-gradient(90deg,
+      rgba(248,252,254,.99) 0%,
+      rgba(244,250,252,.97) 34%,
+      rgba(238,248,251,.84) 52%,
+      rgba(22,112,145,.34) 76%,
+      rgba(10,91,126,.22) 100%),
+    url("images/doctor-hero-background.webp") right center / cover no-repeat;
+}
+.hero::before{display:none}
+.hero-orb{display:none}
+.hero-grid{
+  grid-template-columns:minmax(0,650px);
+  min-height:510px;
+  align-items:center;
+  gap:0;
+}
+.hero-copy{
+  position:relative;
+  z-index:2;
+  max-width:625px;
+  padding:18px 0;
+}
+.hero h1{max-width:610px}
+.hero-title-line{max-width:610px}
+.hero-lead{max-width:540px}
+.hero-stats{
+  position:relative;
+  z-index:2;
+  margin-top:8px;
+  background:rgba(255,255,255,.94);
+  backdrop-filter:blur(12px);
+  -webkit-backdrop-filter:blur(12px);
+}
+
+@media (max-width:1024px){
+  .hero{
+    min-height:660px;
+    background:
+      linear-gradient(90deg,
+        rgba(248,252,254,.99) 0%,
+        rgba(244,250,252,.97) 42%,
+        rgba(238,248,251,.86) 62%,
+        rgba(18,101,137,.28) 100%),
+      url("images/doctor-hero-background.webp") 68% center / cover no-repeat;
+  }
+  .hero-grid{grid-template-columns:minmax(0,600px);min-height:470px}
+}
+
+@media (max-width:760px){
+  .hero{
+    min-height:auto;
+    padding-top:42px;
+    padding-bottom:32px;
+    background:
+      linear-gradient(90deg,
+        rgba(248,252,254,.97) 0%,
+        rgba(244,250,252,.95) 58%,
+        rgba(236,247,250,.86) 100%),
+      url("images/doctor-hero-background.webp") 66% center / cover no-repeat;
+  }
+  .hero-grid{display:block;min-height:500px}
+  .hero-copy{max-width:570px;padding-top:4px}
+  .hero-stats{margin-top:14px}
+}
+
+@media (max-width:520px){
+  .hero{
+    background:
+      linear-gradient(180deg,
+        rgba(248,252,254,.98) 0%,
+        rgba(244,250,252,.96) 62%,
+        rgba(235,247,250,.91) 100%),
+      url("images/doctor-hero-background.webp") 64% center / cover no-repeat;
+  }
+  .hero-grid{min-height:510px}
+}
+
+
+/* Hero refinement v8: stronger doctor presence + mobile separate image */
+.hero{
+  background:
+    linear-gradient(90deg,
+      rgba(248,252,254,.99) 0%,
+      rgba(244,250,252,.97) 31%,
+      rgba(238,248,251,.86) 45%,
+      rgba(238,248,251,.44) 57%,
+      rgba(13,102,135,.12) 100%),
+    url("images/doctor-hero-background.webp") 84% 0% / cover no-repeat;
+}
+.hero-grid{min-height:520px}
+.hero-copy{padding-top:22px;padding-bottom:22px}
+.hero-mobile-media{display:none}
+
+@media (max-width: 1024px){
+  .hero{
+    min-height:660px;
+    background:
+      linear-gradient(90deg,
+        rgba(248,252,254,.99) 0%,
+        rgba(244,250,252,.97) 38%,
+        rgba(238,248,251,.84) 56%,
+        rgba(238,248,251,.42) 66%,
+        rgba(18,101,137,.10) 100%),
+      url("images/doctor-hero-background.webp") 76% 0% / cover no-repeat;
+  }
+  .hero-grid{grid-template-columns:minmax(0,610px);min-height:500px}
+}
+
+@media (max-width: 760px){
+  .hero{
+    min-height:auto;
+    padding-top:42px;
+    padding-bottom:32px;
+    background:linear-gradient(180deg,
+      rgba(248,252,254,.98) 0%,
+      rgba(244,250,252,.96) 100%);
+  }
+  .hero-grid{display:block;min-height:0}
+  .hero-copy{max-width:100%;padding-top:4px}
+  .hero-mobile-media{display:block;margin:18px 0 12px}
+  .hero-mobile-media-frame{
+    position:relative;
+    border-radius:26px;
+    overflow:hidden;
+    background:linear-gradient(165deg,#d7f0f6 0%,#c2e7f0 52%,#afdce9 100%);
+    box-shadow:0 20px 44px rgba(18,73,102,.14);
+    border:1px solid rgba(205,227,236,.9);
+    padding:0;
+  }
+  .hero-mobile-media-frame::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(180deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,.02) 100%);
+    pointer-events:none;
+  }
+  .hero-mobile-media img{
+    display:block;
+    width:100%;
+    height:auto;
+    aspect-ratio: 16 / 11;
+    object-fit:cover;
+    object-position:50% 0%;
+  }
+  .hero-actions{margin-top:18px}
+  .hero-stats{margin-top:14px}
+}
+
+@media (max-width: 520px){
+  .hero-mobile-media{margin:16px 0 10px}
+  .hero-mobile-media-frame{border-radius:22px}
+  .hero-mobile-media img{aspect-ratio: 5 / 6; object-position:52% 0%}
+}
+
+
+/* Hero responsive refinement v9 */
+@media (min-width:1025px){
+  .hero{
+    background:
+      linear-gradient(90deg,
+        rgba(248,252,254,.995) 0%,
+        rgba(244,250,252,.985) 30%,
+        rgba(240,249,252,.92) 38%,
+        rgba(238,248,251,.62) 44%,
+        rgba(238,248,251,.22) 49%,
+        rgba(238,248,251,0) 54%,
+        rgba(238,248,251,0) 100%),
+      url("images/doctor-hero-background.webp") 84% 0% / cover no-repeat;
+  }
+}
+
+@media (min-width:761px) and (max-width:1024px){
+  .hero{
+    background:
+      linear-gradient(90deg,
+        rgba(248,252,254,.99) 0%,
+        rgba(244,250,252,.97) 37%,
+        rgba(238,248,251,.82) 50%,
+        rgba(238,248,251,.38) 59%,
+        rgba(238,248,251,.08) 67%,
+        rgba(238,248,251,0) 74%,
+        rgba(238,248,251,0) 100%),
+      url("images/doctor-hero-background.webp") 58% 0% / cover no-repeat;
+  }
+}
+
+@media (max-width:760px){
+  .hero-mobile-media img{
+    aspect-ratio:16 / 10;
+    object-position:88% 0%;
+  }
+}
+
+@media (max-width:520px){
+  .hero-mobile-media img{
+    aspect-ratio:25 / 27;
+    object-position:88% 0%;
+  }
+}

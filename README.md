@@ -51,6 +51,3 @@ No build process is required.
 
 - Appointment CTAs direct visitors to the relevant chamber phone numbers only.
 - The hero title and description no longer use the em dash character.
-
-## Image optimisation
-All photographic website images are WebP and have been recompressed for faster page delivery while keeping their original display dimensions.

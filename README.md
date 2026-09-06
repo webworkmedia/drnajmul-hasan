@@ -54,3 +54,14 @@ No build process is required.
 
 ## Hero image
 The homepage hero now uses `assets/images/doctor-hero-background.webp` as a responsive background image with a soft blue/teal overlay so it blends with the site palette while keeping the left-side text readable.
+
+## Gallery update
+The Professional Journey gallery now includes 11 additional compressed WebP images. They remain hidden initially and are revealed with the **Load more** button to keep the page compact and fast on first view. The new gallery labels are also included in the English/Bangla translation toggle.
+
+## Gallery v12 update
+- Added five new unique images from the latest upload set; duplicate AO Spine Advanced Seminar certificates were not repeated because the same certificate is already present in the gallery.
+- All new images are compressed to WebP.
+- Every gallery image is clickable and opens in a full-screen lightbox with close, previous/next, Escape, and arrow-key controls.
+
+
+Gallery v13: desktop gallery now uses dense CSS Grid packing so cards automatically back-fill empty columns after Load more.

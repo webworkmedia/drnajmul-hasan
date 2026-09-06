@@ -23,6 +23,92 @@
   }, { threshold: 0.12 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
+  const galleryLoadMore = document.querySelector('.gallery-load-more');
+  if (galleryLoadMore) {
+    galleryLoadMore.addEventListener('click', () => {
+      document.querySelectorAll('.gallery-extra[hidden]').forEach((item, index) => {
+        item.hidden = false;
+        window.setTimeout(() => item.classList.add('gallery-added'), Math.min(index * 30, 240));
+      });
+      galleryLoadMore.setAttribute('aria-expanded', 'true');
+      galleryLoadMore.hidden = true;
+    });
+  }
+
+  // Full-image gallery lightbox with keyboard and previous/next navigation.
+  const galleryCards = Array.from(document.querySelectorAll('.gallery-card'));
+  const lightbox = document.querySelector('.gallery-lightbox');
+  const lightboxImage = document.querySelector('.gallery-lightbox-image');
+  const lightboxCaption = document.querySelector('.gallery-lightbox-caption');
+  const lightboxClose = document.querySelector('.gallery-lightbox-close');
+  const lightboxPrev = document.querySelector('.gallery-lightbox-prev');
+  const lightboxNext = document.querySelector('.gallery-lightbox-next');
+  let lightboxIndex = -1;
+
+  function visibleGalleryCards() {
+    return galleryCards.filter(card => !card.hidden);
+  }
+
+  function renderLightbox(index) {
+    const cards = visibleGalleryCards();
+    if (!cards.length) return;
+    lightboxIndex = (index + cards.length) % cards.length;
+    const card = cards[lightboxIndex];
+    const img = card.querySelector('img');
+    const caption = card.querySelector('figcaption');
+    if (!img || !lightbox || !lightboxImage) return;
+    lightboxImage.src = img.currentSrc || img.src;
+    lightboxImage.alt = img.alt || '';
+    if (lightboxCaption) lightboxCaption.innerHTML = caption ? caption.innerHTML : '';
+  }
+
+  function openLightbox(card) {
+    if (!lightbox) return;
+    const cards = visibleGalleryCards();
+    const index = cards.indexOf(card);
+    if (index < 0) return;
+    renderLightbox(index);
+    lightbox.classList.add('is-open');
+    lightbox.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('gallery-lightbox-open');
+    if (lightboxClose) lightboxClose.focus();
+  }
+
+  function closeLightbox() {
+    if (!lightbox) return;
+    lightbox.classList.remove('is-open');
+    lightbox.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('gallery-lightbox-open');
+  }
+
+  galleryCards.forEach(card => {
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', `Open full image: ${card.querySelector('img')?.alt || 'gallery image'}`);
+    card.addEventListener('click', () => openLightbox(card));
+    card.addEventListener('keydown', event => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openLightbox(card);
+      }
+    });
+  });
+
+  if (lightbox) {
+    lightbox.addEventListener('click', event => {
+      if (event.target === lightbox) closeLightbox();
+    });
+  }
+  if (lightboxClose) lightboxClose.addEventListener('click', closeLightbox);
+  if (lightboxPrev) lightboxPrev.addEventListener('click', () => renderLightbox(lightboxIndex - 1));
+  if (lightboxNext) lightboxNext.addEventListener('click', () => renderLightbox(lightboxIndex + 1));
+  document.addEventListener('keydown', event => {
+    if (!lightbox || !lightbox.classList.contains('is-open')) return;
+    if (event.key === 'Escape') closeLightbox();
+    if (event.key === 'ArrowLeft') renderLightbox(lightboxIndex - 1);
+    if (event.key === 'ArrowRight') renderLightbox(lightboxIndex + 1);
+  });
+
   const year = document.getElementById('year');
   if (year) year.textContent = new Date().getFullYear();
 
@@ -98,6 +184,37 @@
     'Learning alongside specialist colleagues': 'বিশেষজ্ঞ সহকর্মীদের সঙ্গে আন্তর্জাতিক প্রশিক্ষণ',
     'Scientific Conference': 'বৈজ্ঞানিক সম্মেলন',
     'Continued professional learning': 'ধারাবাহিক পেশাগত জ্ঞানচর্চা',
+    'Load more': 'আরও ছবি দেখুন',
+    'Foot & Ankle Surgery Course': 'ফুট ও অ্যাঙ্কেল সার্জারি কোর্স',
+    'BOFAS course participation': 'BOFAS কোর্সে অংশগ্রহণ',
+    'Hands-on Surgical Training': 'হাতে-কলমে সার্জিক্যাল প্রশিক্ষণ',
+    'Learning with international faculty': 'আন্তর্জাতিক প্রশিক্ষকদের সঙ্গে ব্যবহারিক প্রশিক্ষণ',
+    'Fellowship Achievement': 'ফেলোশিপ অর্জন',
+    'Fellow, International College of Surgeons': 'ইন্টারন্যাশনাল কলেজ অব সার্জনস-এর ফেলো',
+    'Surgical Skills Training': 'সার্জিক্যাল দক্ষতা প্রশিক্ষণ',
+    'Practical orthopaedic training': 'ব্যবহারিক অর্থোপেডিক প্রশিক্ষণ',
+    'Spine Surgery Conference': 'স্পাইন সার্জারি সম্মেলন',
+    'KSSS 40th Anniversary, 2024': 'KSSS-এর ৪০তম বার্ষিকী, ২০২৪',
+    'AO Trauma Training': 'AO Trauma প্রশিক্ষণ',
+    'Advanced Principles of Fracture Management': 'ফ্র্যাকচার ম্যানেজমেন্টের অ্যাডভান্সড প্রিন্সিপলস',
+    'AO Recon Seminar': 'AO Recon সেমিনার',
+    'Hip and Knee Arthroplasty': 'হিপ ও হাঁটু আর্থ্রোপ্লাস্টি',
+    'Professional Collaboration': 'পেশাগত সহযোগিতা',
+    'Meeting with surgical colleagues': 'সার্জিক্যাল সহকর্মীদের সঙ্গে পেশাগত মিলন',
+    'AO Spine Advanced Seminar': 'AO Spine অ্যাডভান্সড সেমিনার',
+    'Degenerative Spine, Lumbar and Cervical': 'ডিজেনারেটিভ স্পাইন, লাম্বার ও সার্ভাইক্যাল',
+    'AO Spine Professional Meeting': 'AO Spine পেশাগত সভা',
+    'International Spine Conference': 'আন্তর্জাতিক স্পাইন সম্মেলন',
+    'Scientific presentation and professional exchange': 'বৈজ্ঞানিক উপস্থাপনা ও পেশাগত মতবিনিময়',
+    'Professional Training': 'পেশাগত প্রশিক্ষণ',
+    'Learning alongside surgical colleagues': 'সার্জিক্যাল সহকর্মীদের সঙ্গে প্রশিক্ষণ',
+    'AO Spine Principles Course': 'AO Spine প্রিন্সিপলস কোর্স',
+    'Scoliosis, Dhaka 2022': 'স্কোলিওসিস, ঢাকা ২০২২',
+    'Professional Meeting': 'পেশাগত সভা',
+    'Continuing education and professional exchange': 'ধারাবাহিক শিক্ষা ও পেশাগত মতবিনিময়',
+    'Scientific Presentation': 'বৈজ্ঞানিক উপস্থাপনা',
+    'BSSCON 2023 International Spine Conference': 'BSSCON ২০২৩ আন্তর্জাতিক স্পাইন সম্মেলন',
+    'An earlier milestone in medical training': 'চিকিৎসা প্রশিক্ষণের শুরুর দিকের একটি মাইলফলক',
     'Chambers & appointments': 'চেম্বার ও অ্যাপয়েন্টমেন্ট',
     'Choose the chamber most convenient for you.': 'আপনার সুবিধামতো চেম্বার বেছে নিন।',
     'For serial and appointment confirmation, call the relevant chamber number below.': 'সিরিয়াল বা অ্যাপয়েন্টমেন্ট নিশ্চিত করতে নিচের সংশ্লিষ্ট চেম্বারের নম্বরে কল করুন।',
